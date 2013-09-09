@@ -60,14 +60,14 @@ class Redis extends Backend implements BackendInterface
 	{
 		$options = $this->getOptions();
 
+		$this->setLastKey($keyName);
+		
 		$value = $options['redis']->get($keyName);
 		if ($value===false) {
 			return null;
 		}
 
 		$frontend = $this->getFrontend();
-
-		$this->setLastKey($keyName);
 
 		return $frontend->afterRetrieve($value);
 	}
